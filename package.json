@@ -1,0 +1,27 @@
+{
+  "name": "@h-platform/bpm",
+  "version": "0.0.1",
+  "description": "light business process state management",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "Yasir Hantoush",
+  "license": "MIT",
+  "dependencies": {
+    "@h-platform/cqm": "^0.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h-platform/bpm.git"
+  }
+}
