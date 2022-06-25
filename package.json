@@ -11,7 +11,7 @@
   "author": "Yasir Hantoush",
   "license": "MIT",
   "dependencies": {
-    "@h-platform/cqm": "^0.0.2"
+    "@h-platform/cqm": "^0.0.8"
   },
   "devDependencies": {
     "typescript": "^4.3.4"
