@@ -18,6 +18,23 @@ export class BusinessProcess {
         this.currentTasks = [...this.inititalTasks];
     }
 
+    canComplete(taskName: string) {
+        // ensure task is currently active
+        if (!this.currentTasks.includes(taskName)) return false;
+        
+        // get business task
+        const foundBusinessTask = this.availableTasks.find(t => t.taskName === taskName);
+        if (!foundBusinessTask) return false
+        
+        // check task constraint
+        try {
+            const ok = foundBusinessTask.completeConstraint(this);
+            return ok;
+        } catch (err) {
+            return false;
+        }
+    }
+
     complete(taskName: string) {
         // ensure task is currently active
         if (!this.currentTasks.includes(taskName))
