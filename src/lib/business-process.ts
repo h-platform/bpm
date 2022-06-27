@@ -28,7 +28,7 @@ export class BusinessProcess {
         
         // check task constraint
         try {
-            const ok = foundBusinessTask.completeConstraint(this);
+            const ok = foundBusinessTask.canComplete(this);
             return ok;
         } catch (err) {
             return false;
@@ -46,11 +46,11 @@ export class BusinessProcess {
             throw new CommandError(`Task "${taskName}" not available in process`, 'TASK_NOT_AVAILABLE');
         
         // check task constraint
-        const ok = foundBusinessTask.completeConstraint(this);
+        const ok = foundBusinessTask.canComplete(this);
         if (!ok) throw new CommandError(`Task "${taskName}" transition contraint failed`, 'TASK_CONSTRAINT_FAILED');
         
         // update process
-        this.currentTasks.push(...foundBusinessTask.nextTasks(this));
+        this.currentTasks.push(...foundBusinessTask.getNextTasks(this));
         this.currentTasks = this.currentTasks.filter(t => t != taskName);
         this.completedTasks.push(taskName);
     }
@@ -68,7 +68,7 @@ export class BusinessTask {
     constructor(
         readonly taskName: string,
         readonly taskType: TaskType,
-        readonly nextTasks: NextTasksFunc = () => [],
-        readonly completeConstraint: TaskConstraintFunc = () => true,
+        readonly getNextTasks: NextTasksFunc = () => [],
+        readonly canComplete: TaskConstraintFunc = () => true,
     ) { }
 }
