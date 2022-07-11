@@ -11,7 +11,7 @@ export class BusinessProcess {
 
     constructor(
         readonly inititalTasks: string[],
-        readonly availableTasks: BusinessTask[]
+        readonly definedTasks: BusinessTask[]
     ) { }
 
     start() {
@@ -23,7 +23,7 @@ export class BusinessProcess {
         if (!this.currentTasks.includes(taskName)) return false;
         
         // get business task
-        const foundBusinessTask = this.availableTasks.find(t => t.taskName === taskName);
+        const foundBusinessTask = this.definedTasks.find(t => t.taskName === taskName);
         if (!foundBusinessTask) return false
         
         // check task constraint
@@ -35,13 +35,22 @@ export class BusinessProcess {
         }
     }
 
+    resolve(taskName: string) {
+        try { 
+            this.complete(taskName);
+            return true;
+        } catch (err) { 
+            return false 
+        };
+    }
+    
     complete(taskName: string) {
         // ensure task is currently active
         if (!this.currentTasks.includes(taskName))
             throw new CommandError(`Task "${taskName}" not in current active tasks of the process`, 'TASK_NOT_ACTIVE');
         
         // get business task
-        const foundBusinessTask = this.availableTasks.find(t => t.taskName === taskName);
+        const foundBusinessTask = this.definedTasks.find(t => t.taskName === taskName);
         if (!foundBusinessTask)
             throw new CommandError(`Task "${taskName}" not available in process`, 'TASK_NOT_AVAILABLE');
         
