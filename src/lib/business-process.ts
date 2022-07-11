@@ -51,8 +51,10 @@ export class BusinessProcess {
         
         // get business task
         const foundBusinessTask = this.definedTasks.find(t => t.taskName === taskName);
-        if (!foundBusinessTask)
-            throw new CommandError(`Task "${taskName}" not available in process`, 'TASK_NOT_AVAILABLE');
+        if (!foundBusinessTask) {
+            this.currentTasks = this.currentTasks.filter(t => t != taskName);
+            this.completedTasks.push(taskName);
+        }
         
         // check task constraint
         const ok = foundBusinessTask.canComplete(this);

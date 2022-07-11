@@ -1,6 +1,6 @@
 {
   "name": "@h-platform/bpm",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "light business process state management",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
